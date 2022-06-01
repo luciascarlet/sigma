@@ -12,7 +12,10 @@ impl LUTSine {
 			lut[i] = (i as f64 / size as f64 * PI / 2.0).sin();
 		}
 		lut[size + 1] = 1.0; // for interpolation
-		LUTSine { lut: lut, size: size }
+		LUTSine {
+			lut: lut,
+			size: size,
+		}
 	}
 
 	// return sine wave sample at a given phase between 0.0 and 1.0
@@ -20,7 +23,7 @@ impl LUTSine {
 		let phase = phase % 1.0;
 		let lerp = (phase * self.size as f64).fract();
 		match phase {
-			x if x > 0.0 && x <= 0.25 => {
+			x if x >= 0.0 && x <= 0.25 => {
 				let peek = phase * self.size as f64;
 				self.lut[peek as usize] * (1.0 - lerp) + self.lut[peek as usize + 1] * lerp
 			}

@@ -1,3 +1,3 @@
-pub mod synthesis;
-pub mod operators;
 pub mod graph;
+pub mod operators;
+pub mod synthesis;
