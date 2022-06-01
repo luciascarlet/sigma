@@ -1,19 +1,26 @@
+use super::lut_sine::LUTSine;
+use super::partial::Partial;
+
+mod output;
+
 pub struct SineBank {
 	partials: Vec<Partial>,
 	num_partials: usize,
 	phases: Vec<f64>,
 	fundamental: f64,
 	sample_rate: f64,
+	sine: LUTSine,
 }
 
 impl SineBank {
 	pub fn new(num_partials: usize, fundamental: f64, sample_rate: f64) -> SineBank {
 		SineBank {
-			partials: vec![Partial::new(1.0, 0.0, 0.0, 0.0); num_partials],
+			partials: vec![Partial {ratio: 1.0, phase: 0.0, amp: 0.0, pan: 0.0,}; num_partials],
 			num_partials,
 			phases: vec![0.0; num_partials],
 			fundamental,
 			sample_rate,
+			sine: LUTSine::new(512),
 		}
 	}
 
@@ -23,6 +30,10 @@ impl SineBank {
 
 	pub fn set_fundamental(&mut self, fundamental: f64) {
 		self.fundamental = fundamental;
+	}
+
+	pub fn get_num_partials(&self) -> usize {
+		self.num_partials
 	}
 
 	pub fn set_partial_ratio(&mut self, partial: usize, ratio: f64) {
@@ -51,8 +62,8 @@ impl SineBank {
 
 	// these are mostly there to make processing only specific aspects of partials easier,
 	// as a lot of filters may only care about the ratios or the amplitudes
-	pub fn get_ratios(&self) -> &[f64] {
-		&self.partials.iter().map(|p| p.ratio).collect::<Vec<_>>()
+	pub fn get_ratios(&self) -> Vec<f64> {
+		self.partials.iter().map(|p| p.ratio).collect::<Vec<_>>()
 	}
 
 	pub fn set_ratios(&mut self, ratios: &[f64]) {
@@ -61,8 +72,8 @@ impl SineBank {
 		}
 	}
 
-	pub fn get_phases(&self) -> &[f64] {
-		&self.partials.iter().map(|p| p.phase).collect::<Vec<_>>()
+	pub fn get_phases(&self) -> Vec<f64> {
+		self.partials.iter().map(|p| p.phase).collect::<Vec<_>>()
 	}
 
 	pub fn set_phases(&mut self, phases: &[f64]) {
@@ -71,8 +82,8 @@ impl SineBank {
 		}
 	}
 
-	pub fn get_amps(&self) -> &[f64] {
-		&self.partials.iter().map(|p| p.amp).collect::<Vec<_>>()
+	pub fn get_amps(&self) -> Vec<f64> {
+		self.partials.iter().map(|p| p.amp).collect::<Vec<_>>()
 	}
 
 	pub fn set_amps(&mut self, amps: &[f64]) {
@@ -81,8 +92,8 @@ impl SineBank {
 		}
 	}
 
-	pub fn get_pans(&self) -> &[f64] {
-		&self.partials.iter().map(|p| p.pan).collect::<Vec<_>>()
+	pub fn get_pans(&self) -> Vec<f64> {
+		self.partials.iter().map(|p| p.pan).collect::<Vec<_>>()
 	}
 
 	pub fn set_pans(&mut self, pans: &[f64]) {
@@ -90,5 +101,4 @@ impl SineBank {
 			partial.pan = *pan;
 		}
 	}
-
 }
