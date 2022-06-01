@@ -1,4 +1,4 @@
-// shut the fuck up for now
+// shut the fuck up
 #![allow(dead_code)]
 
 pub mod graph;
