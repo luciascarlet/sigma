@@ -19,21 +19,12 @@ impl Default for SawOp {
 
 impl SourceOp for SawOp {
 	// note: we won't need the fundamental here at all, but it's required by the op trait
-	fn process(&self, num_partials: usize, _fundamental: f64) -> Vec<Partial> {
-		let mut partials = vec![
-			Partial {
-				ratio: 1.0,
-				phase: 1.0,
-				amp: 0.0,
-				pan: 0.0,
-			};
-			num_partials
-		];
-		for i in 0..num_partials {
-			partials[i].ratio = (i + 1) as f64;
-			partials[i].phase = self.phase % 1.0; // you never know...
-			partials[i].amp = 1.0 / ((i + 1) as f64 * self.falloff);
+	fn process_partial(&self, idx: usize, _fundamental: f64) -> Partial {
+		Partial {
+			ratio: (idx + 1) as f64,
+			phase: self.phase % 1.0, // you never know...
+			amp: 1.0 / ((idx + 1) as f64 * self.falloff),
+			pan: 0.0,
 		}
-		partials
 	}
 }
