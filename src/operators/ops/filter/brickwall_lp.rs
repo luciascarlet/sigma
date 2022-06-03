@@ -1,5 +1,5 @@
-use crate::synthesis::partial::Partial;
-use crate::operators::filter_op::*;
+use crate::operators::FilterOp;
+use crate::synthesis::Partial;
 
 // simple brickwall lowpass filter that just gets rid of partials past a certain frequency lmao
 pub struct BrickwallLpOp {

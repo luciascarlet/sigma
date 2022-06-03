@@ -1,5 +1,5 @@
-use crate::operators::source_op::SourceOp;
-use crate::synthesis::partial::Partial;
+use crate::operators::SourceOp;
+use crate::synthesis::Partial;
 
 /* i should probably come up with a proc macro solution for parameters in ops or something, so i don't have to fucking expose the fields directly - something that allows me to actually control what happens when they are get and set without requiring getter/setter methods, as that is nasty and unpredictable */
 

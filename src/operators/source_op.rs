@@ -1,4 +1,4 @@
-use crate::synthesis::partial::Partial;
+use crate::synthesis::Partial;
 
 pub trait SourceOp {
 	fn process_partial(&self, idx: usize, fundamental: f64) -> Partial;

@@ -1,5 +1,5 @@
 use super::lut_sine::LUTSine;
-use super::partial::Partial;
+use super::Partial;
 
 mod output;
 

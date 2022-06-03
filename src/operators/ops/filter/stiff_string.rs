@@ -1,5 +1,5 @@
-use crate::operators::filter_op::*;
-use crate::synthesis::partial::Partial;
+use crate::operators::FilterOp;
+use crate::synthesis::Partial;
 
 // simple exponential ratio stretcher, similar to NI Razor's "stiff string" mode
 pub struct StiffStringOp {

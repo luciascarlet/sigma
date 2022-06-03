@@ -1,4 +1,4 @@
-use crate::synthesis::partial::Partial;
+use crate::synthesis::Partial;
 
 // you know what, I don't think I need all of this shit - let's just make everything PartialOp
 pub trait FilterOp {
