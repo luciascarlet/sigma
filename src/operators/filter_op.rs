@@ -5,8 +5,8 @@ pub trait FilterOp {
 	fn transform(&self, partial: Partial, idx: usize, fundamental: f64) -> Partial;
 	fn process(&self, partials: Vec<Partial>, fundamental: f64) -> Vec<Partial> {
 		let mut out = partials.clone();
-		for (i, p) in partials.iter().enumerate() {
-			out[i] = self.transform(p.clone(), i, fundamental);
+		for (i, p) in out.iter_mut().enumerate() {
+			*p = self.transform(*p, i, fundamental);
 		}
 		out
 	}
