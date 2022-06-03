@@ -1,5 +1,5 @@
-use crate::synthesis::partial::Partial;
-use crate::operators::filter_op::*;
+use crate::operators::FilterOp;
+use crate::synthesis::Partial;
 
 // simple spectral clipper, hard-limits partial amplitudes
 pub struct ClipOp {

@@ -4,3 +4,12 @@
 pub mod graph;
 pub mod operators;
 pub mod synthesis;
+
+#cfg[test]
+
+fn it_doesnt_work() {
+	// im not even going to bother with an actual unit test i just want to see if the garbage my code generates even makes any sense
+
+	// create sine bank to work with
+	let sine_bank = synthesis::sine_bank::SineBank
+}

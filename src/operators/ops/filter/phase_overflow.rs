@@ -1,5 +1,5 @@
-use crate::operators::filter_op::*;
-use crate::synthesis::partial::Partial;
+use crate::operators::FilterOp;
+use crate::synthesis::Partial;
 
 // applies an overflowing function to partial phases for more interesting textures
 pub struct PhaseOverflowOp {
