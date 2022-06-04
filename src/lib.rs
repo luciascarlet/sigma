@@ -1,9 +1,13 @@
 // shut the fuck up
 #![allow(dead_code)]
 
+// shut the fuck up 2: electric boogaloo
+#![allow(unused_imports)]
+
 pub mod graph;
 pub mod operators;
 pub mod synthesis;
+pub mod maths;
 
 #[cfg(test)]
 fn it_doesnt_work() {
