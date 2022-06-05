@@ -36,6 +36,11 @@ impl SineBank {
 		self.num_partials
 	}
 
+	pub fn set_partials(&mut self, partials: Vec<Partial>) {
+		self.partials = partials.clone();
+		self.num_partials = partials.len();
+	}
+
 	pub fn set_partial_ratio(&mut self, partial: usize, ratio: f64) {
 		self.partials[partial].ratio = ratio;
 	}
