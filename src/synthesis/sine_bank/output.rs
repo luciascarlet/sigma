@@ -1,6 +1,7 @@
 use super::SineBank;
 
 impl SineBank {
+	// This is Slow as Fuck! :D
 	pub fn tick(&mut self) {
 		for (i, p) in self.partials.iter().enumerate() {
 			self.phases[i] += self.fundamental * p.ratio / self.sample_rate;
