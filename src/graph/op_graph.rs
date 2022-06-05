@@ -11,7 +11,7 @@ pub struct OpGraph {
 }
 
 impl OpGraph {
-	fn new(num_partials: usize, fundamental: f64) -> OpGraph {
+	pub fn new(num_partials: usize, fundamental: f64) -> OpGraph {
 		OpGraph {
 			num_partials,
 			fundamental,
@@ -20,49 +20,49 @@ impl OpGraph {
 		}
 	}
 
-	fn get_fundamental(&self) -> f64 {
+	pub fn get_fundamental(&self) -> f64 {
 		self.fundamental
 	}
 
-	fn set_fundamental(&mut self, fundamental: f64) {
+	pub fn set_fundamental(&mut self, fundamental: f64) {
 		self.fundamental = fundamental;
 	}
 
-	fn add_source_op(&mut self, source_op: Box<dyn SourceOp>) {
+	pub fn add_source_op(&mut self, source_op: Box<dyn SourceOp>) {
 		self.source_ops.push(source_op);
 	}
 
-	fn add_filter_op(&mut self, filter_op: Box<dyn FilterOp>) {
+	pub fn add_filter_op(&mut self, filter_op: Box<dyn FilterOp>) {
 		self.filter_ops.push(filter_op);
 	}
 
-	fn get_source_ops(&self) -> &Vec<Box<dyn SourceOp>> {
+	pub fn get_source_ops(&self) -> &Vec<Box<dyn SourceOp>> {
 		&self.source_ops
 	}
 
-	fn get_filter_ops(&self) -> &Vec<Box<dyn FilterOp>> {
+	pub fn get_filter_ops(&self) -> &Vec<Box<dyn FilterOp>> {
 		&self.filter_ops
 	}
 
-	fn reorder_source_ops(&mut self, from: usize, to: usize) {
+	pub fn reorder_source_ops(&mut self, from: usize, to: usize) {
 		let source_op = self.source_ops.remove(from);
 		self.source_ops.insert(to, source_op);
 	}
 
-	fn reorder_filter_ops(&mut self, from: usize, to: usize) {
+	pub fn reorder_filter_ops(&mut self, from: usize, to: usize) {
 		let filter_op = self.filter_ops.remove(from);
 		self.filter_ops.insert(to, filter_op);
 	}
 
-	fn remove_source_op(&mut self, idx: usize) {
+	pub fn remove_source_op(&mut self, idx: usize) {
 		self.source_ops.remove(idx);
 	}
 
-	fn remove_filter_op(&mut self, idx: usize) {
+	pub fn remove_filter_op(&mut self, idx: usize) {
 		self.filter_ops.remove(idx);
 	}
 
-	fn run(&self) -> Vec<Partial> {
+	pub fn run(&self) -> Vec<Partial> {
 		// create blank set of partials
 		let mut partials = vec![
 			Partial {
