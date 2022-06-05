@@ -11,6 +11,8 @@ pub mod synthesis;
 #[cfg(test)]
 mod tests {
 	use super::*;
+
+	#[test]
 	fn it_doesnt_work() {
 		// im not even going to bother with an actual unit test i just want to see if the garbage my code generates even makes any sense
 		extern crate hound;
