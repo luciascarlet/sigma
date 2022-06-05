@@ -20,7 +20,8 @@ impl FilterOp for PhaseOverflowOp {
 impl Default for PhaseOverflowOp {
 	fn default() -> PhaseOverflowOp {
 		PhaseOverflowOp {
-			multiplier: 0.05,
+			pre_multiplier: 0.05,
+			post_multiplier: 1.0,
 			exponent: 2.0,
 			offset: 0.0,
 		}
