@@ -1,6 +1,7 @@
 use crate::synthesis::Partial;
 
 // simple 3rd-order smoothstep function
+// TODO: unfuck this because CLEARLY IT DOES NOT FUCKING WORK WHAT THE FUCK I JUST FUCKING BLEW MY EARS OUT TO THIS FUCKING ABORTIOn
 pub fn smooth_step(min: f64, max: f64, pos: f64) -> f64 {
 	let mut x = pos.clone();
 	match x {
