@@ -19,7 +19,7 @@ mod tests {
 		let mut sine_bank = synthesis::SineBank::new(1, 440.0, 44100.0);
 
 		sine_bank.set_partial_amp(0, 0.75);
-		
+
 		let spec = hound::WavSpec {
 			channels: 1,
 			sample_rate: 44100,
@@ -30,8 +30,10 @@ mod tests {
 		let mut writer = hound::WavWriter::create("sine_from_bank.wav", spec).unwrap();
 
 		for _ in 0..44100 {
-			sine_bank.tick()  ;
-			writer.write_sample((sine_bank.sample().0 * i16::MAX as f64) as i16).unwrap();
+			sine_bank.tick();
+			writer
+				.write_sample((sine_bank.sample().0 * i16::MAX as f64) as i16)
+				.unwrap();
 		}
 	}
 
@@ -82,12 +84,43 @@ mod tests {
 		}
 	}
 
+	// basically run_graph, but it doesn't write to a file, for purposes of profiling
+	#[test]
+	fn dry_run_graph() {
+		// create sine bank to work with
+		let mut sine_bank = synthesis::SineBank::new(2048, 40.0, 44100.0);
+
+		// create graph and operators
+		let mut graph =
+			graph::OpGraph::new(sine_bank.get_num_partials(), sine_bank.get_fundamental());
+
+		graph.add_source_op(Box::new(operators::source::SawOp::default()));
+		graph.add_filter_op(Box::new(operators::filter::PhaseOverflowOp {
+			pre_multiplier: 0.05,
+			post_multiplier: 1.0,
+			exponent: 2.0,
+			offset: 0.0,
+		}));
+
+		// create partials
+		let partials: Vec<synthesis::Partial> = graph.run();
+		print!("{:?}", partials);
+
+		// run sine bank
+		sine_bank.set_partials(partials);
+		sine_bank.retrigger();
+
+		for _ in 0..44100 {
+			sine_bank.tick();
+			sine_bank.sample();
+		}
+	}
+
 	// this doesn't bother with the sine bank or anything, just there to profile how long it takes to process a graph
 	#[test]
 	fn graph_process_timing() {
 		// create graph and operators
-		let mut graph =
-			graph::OpGraph::new(2048, 120.0);
+		let mut graph = graph::OpGraph::new(2048, 120.0);
 
 		graph.add_source_op(Box::new(operators::source::SawOp::default()));
 		graph.add_filter_op(Box::new(operators::filter::PhaseOverflowOp::default()));
