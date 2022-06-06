@@ -12,7 +12,7 @@ pub struct PhaseOverflowOp {
 impl FilterOp for PhaseOverflowOp {
 	fn transform(&self, partial: Partial, idx: usize, _fundamental: f64) -> Partial {
 		let mut out = partial.clone();
-		out.phase = (out.phase + idx as f64 * self.pre_multiplier).powf(self.exponent) * self.post_multiplier + self.offset;
+		out.phase = ((out.phase + idx as f64 * self.pre_multiplier).powf(self.exponent) * self.post_multiplier + self.offset) % 1.0;
 		out
 	}
 }

@@ -76,14 +76,19 @@ impl OpGraph {
 
 		// add partials from source ops
 		// i should change iter to iter_mut, looks better lmao, but i'm too lazy
-		for (i, op) in self.source_ops.iter().enumerate() {
-			let partial = op.process_partial(i, self.fundamental);
-			partials[i].amp += partial.amp;
-			partials[i].ratio += partial.ratio;
-			// oh god this one is hard
-			partials[i].phase = partials[i].phase + partial.phase % 1.0; // should i maybe average them or something? i cba counting the amount of ops though so fuck this, don't care for now anyway
-															 // who the fuck is even going to combine source ops anyway? why the fuck am i implementing this shit
-			partials[i].pan += partial.pan.clamp(-1.0, 1.0);
+		// for (i, op) in self.source_ops.iter().enumerate() {
+		// 	let partial = op.process_partial(i, self.fundamental);
+		// 	partials[i].amp += partial.amp;
+		// 	partials[i].ratio += partial.ratio;
+		// 	// oh god this one is hard
+		// 	partials[i].phase = partials[i].phase + partial.phase % 1.0; // should i maybe average them or something? i cba counting the amount of ops though so fuck this, don't care for now anyway
+		// 													 // who the fuck is even going to combine source ops anyway? why the fuck am i implementing this shit
+		// 	partials[i].pan += partial.pan.clamp(-1.0, 1.0);
+		// }
+
+		// for now, just use one (1) source op, as i cannot be arsed to implement mixing partials
+		for (idx, p) in partials.iter_mut().enumerate() {
+			*p = self.source_ops[0].process_partial(idx, self.fundamental);
 		}
 
 		// sequentially process filter ops
