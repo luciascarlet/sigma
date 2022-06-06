@@ -33,7 +33,7 @@ impl SineBank {
 
 	// this does not check any of the partials for validity, even for Nyquist, so sanitise the partials before calling this
 	// however, this might be faster, as it skips all of the checks
-	pub fn sample_dangerous(&self) -> (f64, f64) {
+	pub fn sample_unchecked(&self) -> (f64, f64) {
 		let (mut sum_l, mut sum_r): (f64, f64) = (0.0, 0.0);
 		for (i, p) in self.partials.iter().enumerate() {
 			let smp = self.sine.sample(self.phases[i]);
