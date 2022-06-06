@@ -16,4 +16,4 @@ hound = "3.4.0"
 
 # allow test benchmarks to be more meaningful
 [profile.test]
-opt-level = "3"
+opt-level = 3
