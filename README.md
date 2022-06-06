@@ -1,4 +1,4 @@
 # sigma
 Modular additive synthesis engine written in Rust.
 
-Completely and entirely untested, this is just some very rudimentary groundwork and *will* be subject to major change.
+Currently, it works on a VERY basic level, but it's incredibly slow and a lot of optimisation is still required until this would be usable in a real-time setting.
